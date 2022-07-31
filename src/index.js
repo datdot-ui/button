@@ -25,10 +25,13 @@ function button (opts, parent_wire) {
 		name = default_opts.name, 
 		text = default_opts.text, 
 		icons = default_opts.icons, 
-		status = default_opts.status, 
+		status: {
+			current = default_opts.status.current,
+			disabled = default_opts.status.disabled,
+		} = {},
 		theme = `` } = opts		
 	
-	const current_state =  { opts: { name, text,	icons, status, sheets: [default_opts.theme, theme] } }
+	const current_state =  { opts: { name, text,	icons, status: { disabled, current }, sheets: [default_opts.theme, theme] } }
 
 	// protocol
 	const initial_contacts = { 'parent': parent_wire }
@@ -59,10 +62,10 @@ function button (opts, parent_wire) {
 			shadow.append(text_field)
 	}
 
-	if (status.disabled) el.setAttribute(`aria-disabled`, true)
-	if (status.current) el.setAttribute(`aria-current`, true)
+	if (disabled) el.setAttribute(`aria-disabled`, true)
+	if (current) el.setAttribute(`aria-current`, true)
 
-	if (!status.disabled) el.onclick = handle_click
+	if (!disabled) el.onclick = handle_click
 	el.setAttribute('aria-label', name)
 	el.setAttribute('tabindex', 0) // indicates that its element can be focused, and where it participates in sequential keyboard navigation 
 
