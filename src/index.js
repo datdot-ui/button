@@ -54,7 +54,10 @@ function button (opts, parent_wire) {
 	let text_field = document.createElement('span')
 	text_field.className = 'text'
 
-	var svgs = icons.map(icon => get_svg(`./src/svg/${icon.name}.svg`))
+	var svgs = icons.map(icon => {
+		const path = icon.path || './src/svg'
+		return get_svg(`${path}/${icon.name}.svg`)
+	})
 	svgs.forEach(svg => shadow.append(svg))
 	
 	if (text) {
@@ -81,7 +84,10 @@ function button (opts, parent_wire) {
 		if (icons.length) {
 			current_state.opts.icons = icons
 			svgs.forEach(icon => { shadow.removeChild(icon) })
-			svgs = icons.map(icon => get_svg(`./src/svg/${icon.name}.svg`))
+			svgs = icons.map(icon => {
+				const path = icon.path || './src/svg'
+				return get_svg(`${path}/${icon.name}.svg`)
+			})
 			svgs.forEach(svg => shadow.append(svg))
 		}
 		if (text && typeof text !== 'string') {
