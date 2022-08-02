@@ -1,5 +1,5 @@
 const protocol_maker = require('protocol-maker')
-const i_icon = require('datdot-ui-icon')
+const get_svg = require('get_svg')
 
 var id = 0
 var icon_count = 0
@@ -54,8 +54,8 @@ function button (opts, parent_wire) {
 	let text_field = document.createElement('span')
 	text_field.className = 'text'
 
-	let i_icons = icons.map(icon => i_icon({ name: icon.name, path: icon.path}, contacts.add(`${icon.name}-${icon_count++}`)) )
-	i_icons.forEach(i_icon => { shadow.append(i_icon) })
+	var svgs = icons.map(icon => get_svg(`./src/svg/${icon.name}.svg`))
+	svgs.forEach(svg => shadow.append(svg))
 	
 	if (text) {
 			text_field.innerText = text
@@ -80,9 +80,9 @@ function button (opts, parent_wire) {
 		const { text, icons = [], sheets } = data
 		if (icons.length) {
 			current_state.opts.icons = icons
-			i_icons.forEach(icon => { shadow.removeChild(icon) })
-			i_icons = icons.map(icon => i_icon({ name: icon.name, path: icon.path}, contacts.add(`${icon.name}-${icon_count++}`)) )
-			i_icons.forEach(i_icon => { shadow.append(i_icon) })
+			svgs.forEach(icon => { shadow.removeChild(icon) })
+			svgs = icons.map(icon => get_svg(`./src/svg/${icon.name}.svg`))
+			svgs.forEach(svg => shadow.append(svg))
 		}
 		if (text && typeof text !== 'string') {
 			current_state.opts.text = text

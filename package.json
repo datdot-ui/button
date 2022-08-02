@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "bel": "^6.0.0",
-    "datdot-ui-icon": "github:datdot-ui/icon#v0.0.1-alpha",
     "protocol-maker": "github:datdotorg/protocol-maker#v0.0.1-alpha"
   }
 }

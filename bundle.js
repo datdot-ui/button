@@ -429,7 +429,7 @@ nav {
 `
 
 document.body.append(demo())
-},{"..":31,"bel":3,"csjs-inject":6,"protocol-maker":27}],2:[function(require,module,exports){
+},{"..":28,"bel":3,"csjs-inject":6,"protocol-maker":24}],2:[function(require,module,exports){
 var trailingNewlineRegex = /\n[\s]+$/
 var leadingNewlineRegex = /^\n[\s]+/
 var trailingSpaceRegex = /[\s]+$/
@@ -663,7 +663,7 @@ module.exports = hyperx(belCreateElement, {comments: true})
 module.exports.default = module.exports
 module.exports.createElement = belCreateElement
 
-},{"./appendChild":2,"hyperx":29}],4:[function(require,module,exports){
+},{"./appendChild":2,"hyperx":26}],4:[function(require,module,exports){
 (function (global){(function (){
 'use strict';
 
@@ -682,7 +682,7 @@ function csjsInserter() {
 module.exports = csjsInserter;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"csjs":9,"insert-css":30}],5:[function(require,module,exports){
+},{"csjs":9,"insert-css":27}],5:[function(require,module,exports){
 'use strict';
 
 module.exports = require('csjs/get-css');
@@ -1160,124 +1160,6 @@ function scopify(css, ignores) {
 }
 
 },{"./regex":19,"./replace-animations":20,"./scoped-name":21}],23:[function(require,module,exports){
-(function (__filename){(function (){
-const style_sheet = require('support-style-sheet')
-const svg = require('svg')
-const message_maker = require('message-maker')
-
-var id = 0
-
-module.exports = ({name, path, is_shadow = false, theme}, parent_protocol) => {
-// ---------------------------------------------------------------
-    const myaddress = `${__filename}-${id++}`
-    const inbox = {}
-    const outbox = {}
-    const recipients = {}
-    const names = {}
-    const message_id = to => (outbox[to] = 1 + (outbox[to]||0))
-
-    const {notify, address} = parent_protocol(myaddress, listen)
-    names[address] = recipients['parent'] = { name: 'parent', notify, address, make: message_maker(myaddress) }
-    notify(recipients['parent'].make({ to: address, type: 'ready', refs: ['old_logs', 'new_logs'] }))
-
-    function listen (msg) {
-        const {head, refs, type, data, meta } = msg
-        inbox[head.join('/')] = msg                  // store msg
-        const [from, to, msg_id] = head    
-        console.log('New message', { msg })
-    }
- // ---------------------------------------------------------------   
-    const url = path ? path : './src/svg'
-    const symbol = svg(`${url}/${name}.svg`)
-    if (is_shadow) {
-        function layout (style) {
-            const icon = document.createElement('i-icon')
-            const shadow = icon.attachShadow({mode: 'closed'})
-            const slot = document.createElement('slot')
-            slot.name = 'icon'
-            style_sheet(shadow, style)
-            slot.append(symbol)
-            shadow.append(slot)
-            shadow.addEventListener('click', handleOnClick)
-            return icon
-        }
-
-        function handleOnClick (e) {
-            console.log('Click', e)
-            const { notify, address, make } = recipients['parent']
-            notify(make({ to: address, type: 'click', data: { event: e }, refs: {} }))
-        }
-
-        // insert CSS style
-        const custom_style = theme ? theme.style : ''
-        // set CSS variables
-        if (theme && theme.props) {
-            var { fill, size } = theme.props
-        }
-        const style = `
-        :host(i-icon) {
-            --size: ${size ? size : '24px'};
-            --fill: ${fill ? fill : 'var(--primary-color)'};
-            display: block;
-        }
-        slot[name='icon'] {
-            display: grid;
-            justify-content: center;
-            align-items: center;
-        }
-        slot[name='icon'] span {
-            display: block;
-            width: var(--size);
-            height: var(--size);
-        }
-        slot[name='icon'] svg {
-            width: 100%;
-            height: auto;
-        }
-        slot[name='icon'] g {
-            fill: hsl(var(--fill));
-            transition: fill .3s ease-in-out;
-        }
-        ${custom_style}
-        `
-        return layout(style)
-    }
-
-    return symbol
-}
-
-}).call(this)}).call(this,"/node_modules/datdot-ui-icon/src/index.js")
-},{"message-maker":26,"support-style-sheet":24,"svg":25}],24:[function(require,module,exports){
-module.exports = support_style_sheet
-function support_style_sheet (root, style) {
-    return (() => {
-        try {
-            const sheet = new CSSStyleSheet()
-            sheet.replaceSync(style)
-            root.adoptedStyleSheets = [sheet]
-            return true 
-        } catch (error) { 
-            const inject_style = `<style>${style}</style>`
-            root.innerHTML = `${inject_style}`
-            return false
-        }
-    })()
-}
-},{}],25:[function(require,module,exports){
-module.exports = svg
-function svg (path) {
-    const span = document.createElement('span')
-    span.classList.add('icon')
-    get_svg()
-    async function get_svg () {
-        const res = await fetch(path)
-        if (res.status !== 200) throw new Error(res.status)
-        let data = await res.text()
-        span.innerHTML = data
-    }
-    return span
-}   
-},{}],26:[function(require,module,exports){
 module.exports = function message_maker (from) {
   let msg_id = 0
   return function make ({to, type, data = null, refs = {} }) {
@@ -1285,7 +1167,7 @@ module.exports = function message_maker (from) {
       return { head: [from, to, msg_id++], refs, type, data, meta: { stack }}
   }
 }
-},{}],27:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 // const path = require('path')
 // const filename = path.basename(__filename)
 const message_maker = require('message-maker')
@@ -1418,7 +1300,7 @@ const name_routes = {
     },
 }
 */
-},{"message-maker":26}],28:[function(require,module,exports){
+},{"message-maker":23}],25:[function(require,module,exports){
 module.exports = attributeToProperty
 
 var transform = {
@@ -1439,7 +1321,7 @@ function attributeToProperty (h) {
   }
 }
 
-},{}],29:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 var attrToProp = require('hyperscript-attribute-to-property')
 
 var VAR = 0, TEXT = 1, OPEN = 2, CLOSE = 3, ATTR = 4
@@ -1736,7 +1618,7 @@ var closeRE = RegExp('^(' + [
 ].join('|') + ')(?:[\.#][a-zA-Z0-9\u007F-\uFFFF_:-]+)*$')
 function selfClosing (tag) { return closeRE.test(tag) }
 
-},{"hyperscript-attribute-to-property":28}],30:[function(require,module,exports){
+},{"hyperscript-attribute-to-property":25}],27:[function(require,module,exports){
 var inserted = {};
 
 module.exports = function (css, options) {
@@ -1760,9 +1642,9 @@ module.exports = function (css, options) {
     }
 };
 
-},{}],31:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 const protocol_maker = require('protocol-maker')
-const i_icon = require('datdot-ui-icon')
+const get_svg = require('get_svg')
 
 var id = 0
 var icon_count = 0
@@ -1817,8 +1699,8 @@ function button (opts, parent_wire) {
 	let text_field = document.createElement('span')
 	text_field.className = 'text'
 
-	let i_icons = icons.map(icon => i_icon({ name: icon.name, path: icon.path}, contacts.add(`${icon.name}-${icon_count++}`)) )
-	i_icons.forEach(i_icon => { shadow.append(i_icon) })
+	var svgs = icons.map(icon => get_svg(`./src/svg/${icon.name}.svg`))
+	svgs.forEach(svg => shadow.append(svg))
 	
 	if (text) {
 			text_field.innerText = text
@@ -1843,9 +1725,9 @@ function button (opts, parent_wire) {
 		const { text, icons = [], sheets } = data
 		if (icons.length) {
 			current_state.opts.icons = icons
-			i_icons.forEach(icon => { shadow.removeChild(icon) })
-			i_icons = icons.map(icon => i_icon({ name: icon.name, path: icon.path}, contacts.add(`${icon.name}-${icon_count++}`)) )
-			i_icons.forEach(i_icon => { shadow.append(i_icon) })
+			svgs.forEach(icon => { shadow.removeChild(icon) })
+			svgs = icons.map(icon => get_svg(`./src/svg/${icon.name}.svg`))
+			svgs.forEach(svg => shadow.append(svg))
 		}
 		if (text && typeof text !== 'string') {
 			current_state.opts.text = text
@@ -2005,4 +1887,18 @@ function get_theme () {
 	}
 	`
 }
-},{"datdot-ui-icon":23,"protocol-maker":27}]},{},[1]);
+},{"get_svg":29,"protocol-maker":24}],29:[function(require,module,exports){
+module.exports = get_svg
+function get_svg (path) {
+    const span = document.createElement('span')
+    span.classList.add('icon')
+    get_svg()
+    async function get_svg () {
+        const res = await fetch(path)
+        if (res.status !== 200) throw new Error(res.status)
+        let data = await res.text()
+        span.innerHTML = data
+    }
+    return span
+}   
+},{}]},{},[1]);
