@@ -90,7 +90,7 @@ function button (opts, parent_wire) {
 			})
 			svgs.forEach(svg => shadow.append(svg))
 		}
-		if (text && typeof text !== 'string') {
+		if (text && typeof text === 'string') {
 			current_state.opts.text = text
 			text_field.innerText = text
 			if (shadow.contains(text_field)) shadow.removeChild(text_field)
@@ -103,8 +103,8 @@ function button (opts, parent_wire) {
 					const new_sheet = new CSSStyleSheet()
 					new_sheet.replaceSync(sheet)
 					return new_sheet
-					} 
-					if (typeof sheet === 'number') return shadow.adoptedStyleSheets[sheet]
+				} 
+				if (typeof sheet === 'number') return shadow.adoptedStyleSheets[sheet]
 			})
 			shadow.adoptedStyleSheets = new_sheets
 		}
