@@ -126,37 +126,74 @@ function button (opts, parent_wire) {
 
 function get_theme () {
 	return `
-	:root {
+	:host(i-button) {
 			--b: 0, 0%;
 			--r: 100%, 50%;
 			--color-black: var(--b), 0%;
 			--color-greyF2: var(--b), 95%;
+			--color-greyA2: var(--b), 64%;
+			--color-orange: 32, 100%, 50%;
 			--size16: 1.6rem;
 			--weight300: 300;
+			--primary-body-bg-color: var(--color-greyF2);
+			--primary-font: Arial, sens-serif;
+			--primary-size: var(--size14);
+			--primary-size-hover: var(--primary-size);
+			--primary-weight: 300;
+			--primary-weight-hover: 300;
 			--primary-color: var(--color-black);
-			--primary-bg-color: var(--color-greyF2);
-			--primary-size: var(--size16);
-	}
-	:host(i-button) {
+			--primary-color-hover: var(--color-white);
+			--primary-color-focus: var(--color-orange);
+			--primary-bg-color: var(--color-white);
+			--primary-bg-color-hover: var(--color-black);
+			--primary-bg-color-focus: var(--color-greyA2), 0.5;
+			--primary-border-width: 1px;
+			--primary-border-style: solid;
+			--primary-border-color: var(--color-black);
+			--primary-border-opacity: 1;
+			--primary-radius: 8px;
+			--primary-avatar-width: 100%;
+			--primary-avatar-height: auto;
+			--primary-avatar-radius: 0;
+			--primary-disabled-size: var(--primary-size);
+			--primary-disabled-color: var(--color-greyA2);
+			--primary-disabled-bg-color: var(--color-greyEB);
+			--primary-disabled-icon-size: var(--primary-icon-size);
+			--primary-disabled-icon-fill: var(--color-greyA2);
+			--primary-listbox-option-icon-size: 20px;
+			--primary-listbox-option-avatar-width: 40px;
+			--primary-listbox-option-avatar-height: auto;
+			--primary-listbox-option-avatar-radius: var(--primary-avatar-radius);
+			--primary-option-avatar-width: 30px;
+			--primary-option-avatar-height: auto;
+			--primary-list-avatar-width: 30px;
+			--primary-list-avatar-height: auto;
+			--primary-list-avatar-radius: var(--primary-avatar-radius);
+			/* define icon settings ---------------------------------------------*/
+			--primary-icon-size: var(--size16);
+			--primary-icon-size-hover: var(--size16);
+			--primary-icon-fill: var(--primary-color);
+			--primary-icon-fill-hover: var(--primary-color-hover);
 			--size: var(--primary-size);
 			--weight: var(--weight300);
 			--color: var(--primary-color);
 			--color-focus: var(--primary-color-focus);
 			--bg-color: var(--primary-bg-color);
 			--bg-color-focus: var(--primary-bg-color-focus);
+			--border-color: var(--primary-color);
+			--border-radius: var(--primary-radius);
+			--shadow-color: var(--primary-color);
 			--opacity: 1;
 			--padding: 12px;
 			--margin: 0;
 			--border-width: 0px;
 			--border-style: solid;
-			--border-color: var(--primary-color);
 			--border-opacity: 1;
 			--border: var(--border-width) var(--border-style) hsla(var(--border-color), var(--border-opacity));
-			--border-radius: var(--primary-radius);
 			--offset_x: 0px;
 			--offset-y: 6px;
 			--blur: 30px;
-			--shadow-color: var(--primary-color);
+			--weight: 300;
 			--shadow-opacity: 0;
 			--box-shadow: var(--offset_x) var(--offset-y) var(--blur) hsla( var(--shadow-color), var(--shadow-opacity) );
 			display: inline-grid;

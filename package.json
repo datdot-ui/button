@@ -23,11 +23,12 @@
   "homepage": "https://github.com/datdot-ui/button#readme",
   "devDependencies": {
     "browserify": "^17.0.0",
-    "budo": "^11.6.4",  
+    "budo": "^11.6.4",
     "datdot-ui-list": "github:datdot-ui/list#v0.0.1-alpha"
   },
   "dependencies": {
     "bel": "^6.0.0",
+    "csjs-inject": "^1.0.1",
     "protocol-maker": "github:datdotorg/protocol-maker#v0.0.1-alpha"
   }
 }
